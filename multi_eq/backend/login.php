@@ -15,10 +15,10 @@ if(isset($_POST['uname']) && isset($_POST['pass'] )){
     
     
     if (empty($uname)){
-        header("Location: index.php?error=User Name is Required");
+        header("Location: ../index.php?error=User Name is Required");
         exit();
     }else if(empty($pass)){
-        header("Location: index.php?error=Password is required");
+        header("Location: ../index.php?error=Password is required");
         exit();
     
     }else{
@@ -37,12 +37,12 @@ if(isset($_POST['uname']) && isset($_POST['pass'] )){
                 //header($name);
                 exit();
             }else{
-                header("Location: ../index.php?error=Incorect Username or password!");
+                header("Location: ../index.php?error=Napačno uporabniško ime ali geslo!");
             exit();
             }
 
         }else{
-            header("Location: ../index.php?error=Incorect Username or password!");
+            header("Location: ../index.php?error=Napačno uporabniško ime ali geslo!");
             exit();
         }
     }

@@ -112,7 +112,7 @@ p{
     margin: 20px auto;
 }
 .category{
-  margin-top: 5px;
+    margin-top: 5px;
     margin-left: 2%;
     min-width: 95%;
 }
@@ -131,5 +131,4 @@ p{
   background: white;
   box-shadow: 4px 3px 8px 1px #969696;
   -webkit-box-shadow: 4px 3px 8px 1px #969696;
-
 }
