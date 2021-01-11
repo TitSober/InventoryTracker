@@ -3,17 +3,22 @@ include "backend/db_conn.php";
 session_start();
 
 if(isset($_SESSION['id'])){
+    if(time()-$_SESSION["time"] >1200)   
+    { 
+        header("Location:backend/logout.php");
+        exit(); 
+    } 
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="css/add_oprema.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/basic_style.css" rel="stylesheet" type="text/css" >
     <link href="multimedija_logo.png" rel="icon" type="image/png">
     <title>Dodaj opremo</title>
 </head>
@@ -22,7 +27,7 @@ if(isset($_SESSION['id'])){
     <form action="backend/upload-oprema.php" method="POST" enctype="multipart/form-data">
         <label for="ime">Vnesi ime naprave</label>
         <input name = "ime" type="text" placeholder ="Ime opreme">
-        <input class ="upload_area" type="hidden" name="size" value="1">
+        
         <select name="category" id="category">
         <?php
         $oprema = "SELECT * FROM category";
