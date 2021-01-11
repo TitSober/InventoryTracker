@@ -18,14 +18,15 @@ if(isset($_SESSION['id'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/basic_style.css" rel="stylesheet" type="text/css" >
+    <link href="css/oprema_style.css" rel="stylesheet" type="text/css" >
     <link href="multimedija_logo.png" rel="icon" type="image/png">
     <title>Dodaj opremo</title>
 </head>
 <body>
     <a href="home.php" style="position: absolute; top: 10px; left: 10px;">Nazaj </a>
+    <div class = "form">
     <form action="backend/upload-oprema.php" method="POST" enctype="multipart/form-data">
-        <label for="ime">Vnesi ime naprave</label>
+        <h1>Dodaj napravo</h1>
         <input name = "ime" type="text" placeholder ="Ime opreme">
         
         <select name="category" id="category">
@@ -40,6 +41,13 @@ if(isset($_SESSION['id'])){
         <input type="file" name="image" >
         <input type="submit" name="upload" value="Naloži">
         </form>
+        <form action="backend/dodaj-kategorijo.php" method="POST">  
+        <h1>Dodaj kategorijo</h1>
+        <input type="text" name ="ime_kategorije" placeholder="Ime kategorije" >
+        <input type="submit" value="Dodaj kategorijo" >
+
+        </form>
+        </div>
 <script>
     $(document).ready(function () {
       $('select').selectize({
