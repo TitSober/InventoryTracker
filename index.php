@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ef06bd2c19.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
+    <link href="multimedija_logo.png" rel="icon" type="image/png">
     <link href="css/basic_style.css" rel="stylesheet" type="text/css" >
     <title>Login</title>
 </head>

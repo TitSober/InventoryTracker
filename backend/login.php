@@ -37,12 +37,12 @@ if(isset($_POST['uname']) && isset($_POST['pass'] )){
                 //header($name);
                 exit();
             }else{
-                header("Location: ../index.php?error=Napačno uporabniško ime ali geslo!");
+                header("Location: ../index.php?error=Incorect Username or password!");
             exit();
             }
 
         }else{
-            header("Location: ../index.php?error=Napačno uporabniško ime ali geslo!");
+            header("Location: ../index.php?error=Incorect Username or password!");
             exit();
         }
     }
