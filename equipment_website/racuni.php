@@ -12,6 +12,8 @@ if(isset($_SESSION['id'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://kit.fontawesome.com/ef06bd2c19.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Računi</title>
@@ -20,10 +22,33 @@ if(isset($_SESSION['id'])){
 
 </head>
 <body>
-    <a href="racuni-dodaj.php">+</a>
-    <a href="home.php">nazaj</a>
+    
+    <div class="meni"> 
+        <img src="img/ikona.png" class="ikona" onclick="addClick()">
+        <a href="home.php" class="nazaj"><i class="fas fa-angle-double-left"></i> Nazaj</a>
+        <a href="zgodovina-sposoj.php" class="zgodovina">Zgodovina</a>
+        <!--<a href="home.php" class="profil">Profil</a>-->
+        <div class="dropdown">
+          <span>Profil <i class="fas fa-caret-right"></i></span>
+            <div class="dropdown-content">
+                <a href="home.php" class="profil">Profil</a>
+                <a href="home.php" class="logout">Odjava </a>
+            </div>
+        </div>
+        <a href="home.php" class="izposoja">Izposoja</a>
+        <a href="https://www.facebook.com/tvscnm/" target="_blank" class=fb><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/scnm.tv/" target="_blank" class=ig><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/user/SestgScnm" target="_blank" class=yt><i class="fab fa-youtube"></i></a>
+        
+    </div>
+    
+    
     <div>
+    <a id="dodaj" href="racuni-dodaj.php"><i class="fas fa-user-plus"></i></a>
     <table>
+    <th>Ime</th>
+    <th>E-poštni naslov</th>
+    <th>Kriptirano geslo</th>
     <?php 
     $sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
@@ -36,7 +61,7 @@ if(isset($_SESSION['id'])){
             echo "<td>";
             echo "<form id='form' action='backend/delete-account.php' method ='POST'>";
             echo "<input type='hidden' name='id_user' value=".$row['id_user'].">";
-            echo "<input type='submit' value='t'>";
+            echo "<button id='izbrisi' type='submit'> <i class='fas fa-trash'></i> </button>";
             echo "</form>";
             echo "</td>";
             echo "</tr>";

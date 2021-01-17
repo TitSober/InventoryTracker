@@ -25,13 +25,36 @@ if(isset($_SESSION['id'])){
     <title>Dodaj opremo</title>
 </head>
 <body>
+    
+     <div class="meni"> 
+        <img src="img/ikona.png" class="ikona" onclick="addClick()">
+        <a href="home.php" class="nazaj"><i class="fas fa-angle-double-left"></i> Nazaj</a>
+        <a href="zgodovina-sposoj.php" class="zgodovina">Zgodovina</a>
+        <!--<a href="home.php" class="profil">Profil</a>-->
+        <div class="dropdown">
+          <span>Profil <i class="fas fa-caret-right"></i></span>
+            <div class="dropdown-content">
+                <a href="home.php" class="profil">Profil</a>
+                <a href="home.php" class="logout">Odjava </a>
+            </div>
+        </div>
+        <a href="home.php" class="izposoja">Izposoja</a>
+        <a href="https://www.facebook.com/tvscnm/" target="_blank" class=fb><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/scnm.tv/" target="_blank" class=ig><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/user/SestgScnm" target="_blank" class=yt><i class="fab fa-youtube"></i></a>
+        
+    </div>
+    
+    
+    
+    
     <a href="home.php" style="position: absolute; top: 10px; left: 10px;">Nazaj </a>
     <div class = "form">
     <form action="backend/upload-oprema.php" method="POST" enctype="multipart/form-data">
-        <h1>Dodaj napravo</h1>
+        <h1 id="dodaj_napravo">Dodaj napravo</h1>
         <input name = "ime" type="text" placeholder ="Ime opreme">
         
-        <select name="category" id="category">
+        <select name="category" class="category">
             <?php
             $oprema = "SELECT * FROM category";
             $oprema_rezultat = mysqli_query($conn, $oprema);
@@ -40,15 +63,15 @@ if(isset($_SESSION['id'])){
             }
             ?>
         </select>
-        <input type="file" name="image" >
-        <input type="submit" name="upload" value="Naloži">
-        </form>
+        <input id=file_upload type="file" name="image">
+        
+        <button class=button type="submit" name="upload"><i class="fas fa-upload"></i> Naloži</button>
+    </form>
 
         <form action="backend/dodaj-kategorijo.php" method="POST">  
-        <h1>Dodaj kategorijo</h1>
-        <input type="text" name ="ime_kategorije" placeholder="Ime kategorije" >
-        <input type="submit" value="Dodaj kategorijo" ><i class="fas fa-plus"></i>
-
+        <h1 id="dodaj_kategorijo">Dodaj kategorijo</h1>
+        <input id="ime_kategorije" type="text" name ="ime_kategorije" placeholder="Ime kategorije" >
+        <button id=dodaj_kat type="input"> <i class="fas fa-plus"></i></button>
         </form>
         </div>
 <script>
@@ -57,6 +80,24 @@ if(isset($_SESSION['id'])){
           sortField: 'text'
       });
   });
+    
+    
+//pradvaja avocado from mexico
+
+    let click = 0;
+    function checkIfClick(){
+        if(click>9){
+            let audio = new Audio('img/avocado.mp3');
+            audio.play();
+            click = 0;
+        }
+    }
+    
+    function addClick(){
+        click += 1;
+        checkIfClick();
+        
+    }
 </script>
 </body>
 </html>

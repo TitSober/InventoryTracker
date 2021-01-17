@@ -36,7 +36,7 @@ if(isset($_SESSION['id'])){
         <table>
         <?php
         $id = $_SESSION['id'];
-        $sql = "SELECT id_sposoje, sp.oprema_id, datum_sposoje, datum_vrnitve, je_vrnjeno, ime_opreme from sposoja as sp left join oprema as op on op.oprema_id = sp.oprema_id where user_id = '$id' order by id_sposoje DESC LIMIT 20";
+        $sql = "SELECT id_sposoje, sp.oprema_id, datum_sposoje, datum_vrnitve, je_vrnjeno, ime_opreme from sposoja as sp left join oprema as op on op.oprema_id = sp.oprema_id where user_id = '$id' order by id_sposoje DESC";
         $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_array($result)){
             if($row['je_vrnjeno']){

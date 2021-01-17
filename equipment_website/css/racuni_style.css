@@ -1,18 +1,294 @@
-form{
-    width: auto;
-    min-height: fit-content;
+body{
+    /*scrollable box aswell?*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98vh;
+    overflow: hidden;
+    font-size: 17px;
     
-    padding: 30px;
-   
-    margin: 50px;
-    
+}
+*{
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+p{
+    font-size: large;
+}
+
+
+/*shading vsake druge vrstice*/
+tr:nth-child(even) {background-color: rgba(155,155,155,0.2);}
+
+table{
+    position: fixed;
+    top: 10px;
+    align-content: center;
+    right: 140px;
+}
+
+/*gumb za dodajanje userjev*/
+#dodaj{
+    position: relative;
+    top: 430px;
+    left: 900px;
+}
+
+/*naslovi stolpcev*/
+th{
+    text-align: left;
+}
+
+.td{
+    padding: 5px;
+    width: 300px;
+}
+
+td{
+    padding: 5px;
+    width: 300px; 
+}
+
+#izbrisi{
+    background-color:red;
+    color: white;
+    text-align: center;
+    border: 0px;
+    cursor: pointer;
+    width: 40px;
+    right: 100px;
+    float: right;
+    margin-right: 30px;
+}
+
+/*positioning menija - fiksen levo*/
+.meni {
+    /*background-color: black;*/
+    background-image: url(../img/unnamed.jpg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 1000px;
+    width: 160px;
+    text-align: center;
+    margin-right: 10px;
+    -webkit-box-shadow: 4px 3px 8px 5px #969696;
+    z-index: 123;
+}
+
+/*logotip*/
+.ikona{
+    position: relative;
+    top: 20px;
+    right: 0px;
+    height: auto;
+    width: 100px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222 );
+    filter: drop-shadow(5px 5px 5px #222);
+    cursor: pointer;
+
+}
+
+
+/*gumbi - positioning, barva, hover*/
+.nazaj{
+    position: relative;
+    top: 385px;
+    left: 4px;
+    z-index: 100;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;
+    min-width: 120px;
+}
+
+.nazaj:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.zgodovina{
+    position: relative;
+    top: 215px;
+    left: 4px;
+    z-index: 100;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;
+    min-width: 120px;
+
+}
+
+.zgodovina:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.izposoja{
+    position: relative;
+    top: 70px;
+    left: 4px;
+    z-index: 100;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 10px 0px #969696;
+    min-width: 120px;
+}
+
+.izposoja:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.odjava{
+    position: relative;
+    top: 70px;
+    left: 4px;
+    z-index: 100;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 10px 0px #969696;
+    min-width: 120px;
+}
+
+.link-group a {
+    background-color: #f8f8f8; 
+    border: 1px solid rgb(0, 0, 0); 
+    color: rgb(113, 53, 53); 
+    padding: 10px 24px; 
+    cursor: pointer; 
+    float: left; 
+    border-radius: 5px;
+
   }
-  input{
+  .link-group a:not(:last-child) {
+    border-right: none; 
+  }
+  .link-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .link-group a:hover {
+    opacity: .9;
+  }
+  a{
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    font-size: large;
+    color: black;
+    background: #555;
+    padding: 8px 13px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+.fb{
+    position: relative;
+    top: 530px;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;    
+    min-width: 100px;
+}
+
+.fb:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.ig{
+    position: relative;
+    top: 540px;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;    
+    min-width: 100px;
+}
+
+.ig:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.yt{
+    position: relative;
+    top: 550px;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;    
+    min-width: 100px;
+}
+
+.yt:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+}
+
+.logout {
+    position: relative;
+    min-width: 150px;
+}
+
+.profil{
+    position: relative;
+    min-width: 150px;
+}
+
+/*gumb za drop down*/
+.dropdown {
+    position: relative;
+    top: 240px;
+    left: 20px;
+    text-decoration: none;
+    font-size: large;
+    color: black;
+    background: #555;
+    padding: 8px 13px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow: 1px 2px 8px 0px #969696;    
+    width: 120px;
+    cursor: pointer;
+}
+
+/*hover na gumbu za dropdown*/
+.dropdown:hover{
+    background-color: rgb(255, 153, 20);
+}
+
+/*drop down*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+    z-index: 1;
+    left: 120px;
+    top: 0px;
+}
+
+/*gumbi v dropdownu hover*/
+.dropdown-content a:hover {
+    background-color: rgb(255, 153, 20);
+}
+
+
+/*hover na drop downu*/
+.dropdown:hover .dropdown-content {
     display: block;
-    border: 2px solid #ccc; 
-    width: 10%;
-    padding: 20px;
-    margin: 10px auto;
-    opacity: 0.8;
-    font-family: fontawesome;
-  }
+    color:white;
+    box-shadow: 45px 2px 18px 0px #666b66;
+}

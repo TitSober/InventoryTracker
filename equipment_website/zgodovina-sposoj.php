@@ -58,7 +58,7 @@ if(isset($_SESSION['id'])){
     <th>Datum izposoje</th>
     <th>Datum vrnitve</th>
     <?php
-    $sql = "SELECT ime, priimek, ime_opreme, datum_sposoje, datum_vrnitve FROM users as us left join sposoja sp ON us.id_user = sp.user_id right JOIN oprema as op on sp.oprema_id = op.oprema_id";
+    $sql = "SELECT ime, priimek, ime_opreme, datum_sposoje, datum_vrnitve FROM users as us left join sposoja sp ON us.id_user = sp.user_id right JOIN oprema as op on sp.oprema_id = op.oprema_id ORDER BY datum_sposoje desc";
     $result = mysqli_query($conn, $sql);
     if($result){
         while($row = mysqli_fetch_array($result)){
