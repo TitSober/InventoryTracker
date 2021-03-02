@@ -80,25 +80,30 @@ if(isset($_SESSION['id'])){
     </div>
     <div class ="grid-item" id="sposoje">
         <table>
-        <th>Oprema</th>
-        <th>Datum izposoje</th>
-        <th>Datum vrnitve</th>
         <?php
         $id = $_SESSION['id'];
         $sql = "SELECT id_sposoje, sp.oprema_id, datum_sposoje, datum_vrnitve, je_vrnjeno, ime_opreme from sposoja as sp left join oprema as op on op.oprema_id = sp.oprema_id where user_id = '$id' order by id_sposoje DESC ";
         $result = mysqli_query($conn, $sql);
         $count = 0;
-        while($row = mysqli_fetch_array($result)){
-            if($row['je_vrnjeno']){
+        while($row1 = mysqli_fetch_array($result)){
+            if($row1['je_vrnjeno']){
                 $count++;
-                /*$text = str_replace("_"," ",$row['ime_opreme']);
-                echo "<tr>";
-                echo "<th class ='vrnjeno'>".$text."</th>";
-                echo "<th class ='vrnjeno'>".$row['datum_sposoje']."</th>";
-                echo "<th class ='vrnjeno'>".$row['datum_vrnitve']."</th>";*/
-            //echo "<th class ='vrnjeno'><form action = 'vrni-opremo.php' method = 'POST'><input type='hidden' name = 'oprema_id' value=".$row['oprema_id']."> <input type='submit' name='vrni' placeholder='Vrni' ></form></th>";
+            }
+        }
+        if(mysqli_num_rows($result) == $count){
+            echo "<tr ><td><img src='img/ni-sposoj.png' id='slika'></td></tr>";
+        }else{
+            echo "<tr>";
+            echo "<th>Oprema</th>";
+            echo "<th>Datum izposoje</th>";
+            echo "<th>Datum vrnitve</th>";
             echo "</tr>";
-            }else{
+        } 
+        $sql = "SELECT id_sposoje, sp.oprema_id, datum_sposoje, datum_vrnitve, je_vrnjeno, ime_opreme from sposoja as sp left join oprema as op on op.oprema_id = sp.oprema_id where user_id = '$id' order by id_sposoje DESC ";
+        $result = mysqli_query($conn, $sql);
+
+        while($row = mysqli_fetch_assoc($result)){
+            if($row['je_vrnjeno'] == 0){
                 $text = str_replace("_"," ",$row['ime_opreme']);
                 echo "<tr>";
                 echo "<td class='ime_opreme'style='width:35%'>".$text."</td>";
@@ -106,13 +111,17 @@ if(isset($_SESSION['id'])){
                 echo "<td class='datum' style='width:40%'>".$row['datum_vrnitve']."</td>";
                 echo "<td ><form action = 'backend/vrni-opremo.php' method = 'POST'><input type='hidden' name = 'oprema_id' value=".$row['oprema_id']."><input type='hidden' name = 'id_sposoje' value=".$row['id_sposoje']."> 
                 <button type='submit' name='vrni' value='Test' id='vrni'><i class='fas fa-undo'></i></button></form></td>";
-                echo "</tr>";
+                echo "</tr>";   
             }
         }
-        if(mysqli_num_rows($result) == $count){
-            echo "<tr ><td><img src='img/ni-sposoj.png' id='slika'></td></tr>";
-        }
+
         
+        
+        
+        
+        
+        
+    
         ?>
         </table>
     </div>
