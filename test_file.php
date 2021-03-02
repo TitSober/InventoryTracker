@@ -6,12 +6,14 @@ include "backend/db_conn.php";
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/home_style.css" rel="stylesheet" type="text/css">
     <script src="js/generateItems.js"></script>
-    <title>asd</title>
+    <link href="multimedija_logo.png" rel="icon" type="image/png">
+    <title>Home v2</title>
 </head>
 <body>
 <body >
@@ -38,16 +40,35 @@ include "backend/db_conn.php";
     <div class="grid-container">
 
     <div class="grid-item" id="category-container">
-        <a href="home.php">Počisti</a>
-        <br>
+        <nav>
+        <button onclick ="clearCategory()">Počisti</button>
+        <?php
+        $sql = "SELECT * from category";
+        $result = mysqli_query($conn,$sql);
+        if($result){
+            
+            while($row = mysqli_fetch_array($result))
+            {
+                
+                echo "<ul>";
+                echo "<button onClick='categorySelect(".$row['category_id'].")'>".$row['name']."</button>";
+                echo "</ul>";
+            }
+            
+        }else{
+            echo "ppoop";
+        }
+        
+        
+        ?>
+        
+        
+        
+        </nav>
+        
 
         
-         <?php
-         for($i = 0; $i < count($categoryIds);$i++){
-             echo "<a href='home.php?category=$categoryIds[$i]'>$categoryNames[$i]</a>";
-             echo "<br>";
-            }
-         ?>   
+         
     </div> 
 
 
@@ -70,7 +91,7 @@ include "backend/db_conn.php";
         <input type="date" name="return-date" >
         <br>
         <button type="submit">Potrdi</button>
-        <div id="container"></div>
+        <div class="container" id="container"></div>
          <?php
             //if(isset($_GET['category'])){
                 /*$oprema = "SELECT * FROM oprema where category_id = ".$_GET['category'];

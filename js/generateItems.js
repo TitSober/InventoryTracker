@@ -4,54 +4,72 @@ async function getOddOrEven(){
   let odd = data.length % 2;
   if(odd){
     createItemsOdd();
-  }else{
+  }else{ 
     createItemsEven();
   }
 }
 getOddOrEven();
-//setInterval(getOddOrEven,6000);
+setInterval(updateItems,60000);
 
+function clearCategory(){
+  let arrayClasses = document.getElementsByClassName("col-sm");
+  
+  for(let i = 0; i < arrayClasses.length; i++){
+    arrayClasses[i].style.display = "block";
+  }
+}
 
+function categorySelect(category_id){
+  let arrayClasses = document.getElementsByClassName(category_id);
+  
+  for(let i = 0; i < arrayClasses.length; i++){
+    arrayClasses[i].style.display = "none";
+  }
 
+}
 
 async function updateItems(){
   let response = await fetch('api/items-list/');
   let data = await response.json();
   let odd = data.length % 2;
+  
+  let parent = document.getElementById("container");
+  parent.innerHTML = " ";
   if(odd){
+    createItemsOdd();
+    
     
   }else{
-    for(let i = 0; i < Math.floor(data.length/2); i++){
-      let parentDiv =  document.getElementById("left-"+i);
+    createItemsEven();
+    
+    
       
     }
   }
 
-}
+
 
 
 
  async function createItemsEven(){
     let response = await fetch('api/items-list/');
     let data = await response.json();
-    console.log(data);
+    
       for(let i = 0; i < Math.floor(data.length/2); i++){
         let row = document.createElement("div");
         
         row.setAttribute("class", "row");
         row.setAttribute("id",i);
-        document.getElementById("container").appendChild(row);
-        
+        document.getElementById("container").appendChild(row);       
         let col1 = document.createElement("div");
-        //col1.appendChild(document.createTextNode("left"));
-        col1.setAttribute("class", "col-sm");
+        col1.setAttribute("class", "col-sm"+" "+data[i]['category_id']);
         col1.setAttribute("id", "left-"+i);
+       
         document.getElementById(i).appendChild(col1);
-
         let col2 = document.createElement("div");
-        //col2.appendChild(document.createTextNode("right"));
-        col2.setAttribute("class", "col-sm");
-        col2.setAttribute("id", "right-"+i);
+        col2.setAttribute("class", "col-sm"+" "+data[i]['category_id']);
+        col2.setAttribute("id", "right-"+i );
+        
         document.getElementById(i).appendChild(col2);
      
       }
@@ -66,10 +84,7 @@ async function updateItems(){
 
           
 
-          /*inputLeft.setAttribute("class", "btn");
-          inputLeft.setAttribute("name", data[i+1]['oprema_id']);
-          inputLeft.setAttribute("type", "checkbox");
-          inputLeft.setAttribute("value", data[i+1]['oprema_id']);*/
+        
 
           if(data[2*i]['taken_status'] == 0){
             
@@ -158,14 +173,16 @@ async function updateItems(){
           
           let col1 = document.createElement("div");
           //col1.appendChild(document.createTextNode("left"));
-          col1.setAttribute("class", "col-sm");
+          col1.setAttribute("class", "col-sm"+" "+data[i]['category_id']);
           col1.setAttribute("id", "left-"+i);
+          
           document.getElementById(i).appendChild(col1);
   
           let col2 = document.createElement("div");
           //col2.appendChild(document.createTextNode("right"));
-          col2.setAttribute("class", "col-sm");
+          col2.setAttribute("class", "col-sm"+" "+data[i]['category_id']);
           col2.setAttribute("id", "right-"+i);
+          
           document.getElementById(i).appendChild(col2);
        
         }
@@ -300,9 +317,4 @@ async function updateItems(){
             document.getElementById("left-"+id).appendChild(input);
             document.getElementById("left-"+id).appendChild(label);
             document.getElementById("left-"+id).appendChild(img);
-            
-
-        
-
-
       }

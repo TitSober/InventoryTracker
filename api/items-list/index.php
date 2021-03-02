@@ -9,7 +9,7 @@ $result = mysqli_query($conn, $sql);
 if($result){
     while($row = mysqli_fetch_array($result)){
         $response[$i]['oprema_id'] = $row['oprema_id'];
-        $response[$i]['oprema_ime'] = $row['ime_opreme'];
+        $response[$i]['oprema_ime'] = str_replace("_"," ",$row['ime_opreme']);
         $response[$i]['category_id'] = $row['category_id'];
         $response[$i]['taken_status'] = $row['is_taken'];
         $response[$i]['image'] = $row['image'];
