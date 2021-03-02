@@ -3,7 +3,7 @@ session_start();
 include "db_conn.php";
 if(isset($_SESSION['id'])){
     if(!empty($_POST['ime_kategorije'])){
-        $name = $_POST['ime_kategorije'];
+        $name = mysqli_real_escape_string($conn,$_POST['ime_kategorije']);
         $sql = "INSERT INTO category (name) VALUES ('$name')";
         $result = mysqli_query($conn,$sql);
         if($result){

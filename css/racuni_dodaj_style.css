@@ -1,0 +1,143 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98vh;
+    overflow: hidden;
+    font-size: 17px;
+    background-image: linear-gradient(#F2F2F2, #EAEAEA);
+}
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+p{
+    font-size: large;
+}
+
+
+
+
+
+#obrazec{
+    position: relative;
+    width: 550px;
+    height: 600px;
+    background-color: white;
+    border: 14px;
+    border-color: black;
+    left: 900px;
+    top: 25px;
+    border-radius: 9px;
+    box-shadow: 1px 1px 12px 1px #969696;
+}
+
+
+
+input{
+    position: relative;
+    width: 500px;
+    height: 30px;
+    left: 20px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin: 10px;
+}
+
+#okvir{
+    position: relative;
+    width: 1500px;
+    height: 700px;
+    background-color: rgb(255, 153, 20);
+    border-radius: 10px;
+    box-shadow: 1px 2px 8px 0px #969696;
+}
+
+#ime{
+    top: 80px;
+}
+
+#priimek{
+    top: 130px;
+}
+
+#email{
+    top: 180px;
+}
+
+#geslo{
+    top: 230px;
+}
+
+#dodaj{
+    position: relative;
+    float: right;
+    right: 10px;
+    top: 280px;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    font-size: small;
+    color: black;
+    padding: 8px 13px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;
+    min-width: 85px;
+}
+
+#dodaj:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+    border-width: none;
+}
+
+#naslov{
+    position: relative;
+    top: 60px;
+    right: 20px;
+}
+
+#vektor{
+    top: 175px;
+    left: 120px;
+    position: absolute;
+    height: 360px;
+    -webkit-filter: drop-shadow(5px 2px 7px rgba(0,0,0,0.4));
+}
+
+#nazaj{
+    position: relative;
+    left: 100px;
+    top: 640px;
+    display: inline-block;
+    position: relative;
+    float: left;
+    left: 25px;
+    text-decoration: none;
+    font-size: medium;
+    color: black;
+    padding: 8px 13px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: #555;
+    color:white;
+    box-shadow: 1px 2px 8px 0px #969696;
+    min-width: 10px;
+    height: 35px;
+}
+
+#nazaj:hover{
+    background-color: rgb(255, 153, 20);
+    color:white;
+    box-shadow: 1px 2px 8px 0px #666b66;
+    border-width: 1px;
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 14. jan 2021 ob 08.30
+-- Čas nastanka: 20. jan 2021 ob 19.52
 -- Različica strežnika: 10.4.14-MariaDB
 -- Različica PHP: 7.4.10
 
@@ -60,9 +60,13 @@ CREATE TABLE `oprema` (
 --
 
 INSERT INTO `oprema` (`oprema_id`, `ime_opreme`, `category_id`, `is_taken`, `image`) VALUES
-(1, 'sd_kartica_32GB ', 1, 0, 'default.jpg'),
+(1, 'sd_kartica_32GB ', 1, 1, 'default.jpg'),
 (2, 'sony_a73', 2, 0, 'default.jpg'),
-(3, 'Canon_50D', 2, 0, 'default.jpg');
+(3, 'Canon_50D', 2, 0, 'default.jpg'),
+(33, 'asdsadfa', 1, 0, 'default.jpg'),
+(34, 'asdfgdg', 1, 0, 'default.jpg'),
+(35, 'jnkmcdfxbgv', 1, 0, 'sata.jfif'),
+(36, 'asd', 1, 0, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -84,8 +88,32 @@ CREATE TABLE `sposoja` (
 --
 
 INSERT INTO `sposoja` (`id_sposoje`, `user_id`, `oprema_id`, `datum_sposoje`, `datum_vrnitve`, `je_vrnjeno`) VALUES
-(40, 1, 1, '2021-01-13', '2021-01-14', 1),
-(41, 1, 1, '2021-01-13', '2021-01-29', 1);
+(44, 8, 1, '2021-01-16', '2021-01-30', 1),
+(45, 8, 2, '2021-01-16', '2021-01-30', 1),
+(46, 8, 1, '2021-01-16', '2021-01-24', 1),
+(47, 8, 2, '2021-01-16', '2021-01-30', 1),
+(48, 8, 3, '2021-01-16', '2021-01-30', 1),
+(53, 8, 1, '2021-01-18', '2021-01-29', 1),
+(54, 8, 2, '2021-01-18', '2021-01-29', 1),
+(55, 8, 3, '2021-01-18', '2021-01-29', 1),
+(56, 8, 33, '2021-01-18', '2021-01-29', 1),
+(57, 8, 34, '2021-01-18', '2021-01-29', 1),
+(58, 8, 35, '2021-01-18', '2021-01-29', 1),
+(59, 8, 36, '2021-01-18', '2021-01-29', 1),
+(60, 8, 1, '2021-01-18', '2021-01-21', 1),
+(61, 8, 2, '2021-01-18', '2021-01-21', 1),
+(62, 8, 3, '2021-01-18', '2021-01-21', 1),
+(63, 8, 35, '2021-01-18', '2021-01-28', 1),
+(64, 8, 36, '2021-01-18', '2021-01-28', 1),
+(65, 8, 1, '2021-01-18', '2021-01-28', 1),
+(66, 8, 2, '2021-01-18', '2021-01-28', 1),
+(67, 8, 3, '2021-01-18', '2021-01-28', 1),
+(68, 8, 1, '2021-01-19', '2021-01-22', 1),
+(69, 8, 2, '2021-01-19', '2021-01-22', 1),
+(70, 8, 35, '2021-01-19', '2021-01-29', 1),
+(71, 8, 2, '2021-01-19', '2021-01-28', 1),
+(72, 8, 3, '2021-01-19', '2021-01-28', 1),
+(73, 15, 1, '2021-01-19', '2021-01-21', 0);
 
 -- --------------------------------------------------------
 
@@ -98,15 +126,19 @@ CREATE TABLE `users` (
   `ime` varchar(255) NOT NULL,
   `priimek` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `admin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Odloži podatke za tabelo `users`
 --
 
-INSERT INTO `users` (`id_user`, `ime`, `priimek`, `email`, `password`) VALUES
-(1, 'Tit', 'Šober', 'tit', 'geslo');
+INSERT INTO `users` (`id_user`, `ime`, `priimek`, `email`, `password`, `admin`) VALUES
+(8, 'Tit', 'Šober', 'tit', '$2y$10$O3nPHBjEWnkMRIiUwKdmDO/HJe0FPf2ldc6QVPFTsSydeDZMbzida', 1),
+(13, 'asd', 'asd', 'asd', '$2y$10$7ZgndPX8La4ygmRkCIgO.O.gnk8Y6VXxmC1Ho3UzjsHSZlayK8f2y', 0),
+(15, 'test', 'test', 'test', '$2y$10$6wsWdkuZ/m9htRiVu9xRReszBIYGsrpPVo1VEmCQM5WJMFoKWdV/m', 0),
+(16, 'tomy', 'tomy', 'tomy', '$2y$10$7ZMGe6XLuAiMuK7XQya5rub5BxVrXWG1UnqN/MCb97bjmIkChXBC6', 1);
 
 --
 -- Indeksi zavrženih tabel
@@ -153,19 +185,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT tabele `oprema`
 --
 ALTER TABLE `oprema`
-  MODIFY `oprema_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `oprema_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT tabele `sposoja`
 --
 ALTER TABLE `sposoja`
-  MODIFY `id_sposoje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_sposoje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT tabele `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Omejitve tabel za povzetek stanja

@@ -3,12 +3,24 @@ session_start();
 include "backend/db_conn.php";
 
 if(isset($_SESSION['id'])){
+    if(time()-$_SESSION["time"] >1200)   
+    { 
+        header("Location:backend/logout.php");
+        exit(); 
+    } 
     $id = $_SESSION['id'];
     $sql = "SELECT * FROM oprema order by category_id;"; 
     $result = mysqli_query($conn,$sql);
 
     $category = "SELECT * FROM category";
     $category_result = mysqli_query($conn, $category);
+    $categoryIds = array();
+    $categoryNames = array();
+    while($row = mysqli_fetch_array($category_result)){
+        array_push($categoryIds,$row['category_id']);
+        array_push($categoryNames,$row['name']);
+    }
+    
 
 
 ?>
@@ -19,118 +31,141 @@ if(isset($_SESSION['id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/home_style.css" rel="stylesheet" type="text/css">
     <link href="multimedija_logo.png" rel="icon" type="image/png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    
 
     <title>Home</title>
 </head>
-<body>
+<body onload="loadMessage()">
     <div class="link-group">
+        <?php
+        if($_SESSION['admin']){
+            ?>
         <a href="backend/logout.php">Logout</a>
         <a href="dodaj-opremo.php">Dodaj opremo</a>
+        <a href="zgodovina-sposoj.php">Zgodovina</a>
+        <a href="profil.php">Profil</a>
+        <a href="racuni.php">Računi</a>
+        <a href="upravljanje-opreme.php">Upravljaj opremo</a>
+        <?php
+        }else{
+        ?>
+        <a href="backend/logout.php">Logout</a>
+        <a href="zgodovina-sposoj.php">Zgodovina</a>
+        <a href="profil.php">Profil</a>
+        <?php
+        }  
+        ?>
     </div>
     <div class="grid-container">
 
-    <div class="grid-item">
-    
-    <form action="backend/add-to-db.php" method="POST">
-        <?php
-        if(isset($_GET['error'])){
-            ?>
-          <p class="error"><?php echo $_GET['error']?></p>  
-        <?php
-        }else if(isset($_GET['success'])){
-            ?>
-            <p class="success"><?php echo $_GET['success']?></p> 
-            <?php
-        }
-        
-        ?>
-        <h1>Sposoja</h1>
-        <select name="dropdown" id="dropdown">
-            <?php
-            while($row_item = mysqli_fetch_array($result)){
-                echo "<option value = ".$row_item['ime_opreme'].">".$row_item['ime_opreme']."</option>";
-            }
-            ?>
-            
-        </select>
-    <br>
-    <label for="edate">Datum sposoje</label>
-    <input type="date" name="edate" >
-    <br>
-    <label for="return-date"> Datum vrnitve</label>
-    <input type="date" name="return-date" >
-    <br>
-    <button type="submit">Potrdi</button>
-
-    </form>
-    </div>
     <div class="grid-item" id="category-container">
-        <a href="home.php" class = "category">Počisti kategorije</a>
+        <a href="home.php">Počisti</a>
         <br>
 
         
          <?php
-         while($row = mysqli_fetch_array($category_result)){
-             echo "<a class='category' href='home.php?category=".$row['category_id']."'>".$row['name']."</a>";
+         for($i = 0; $i < count($categoryIds);$i++){
+             echo "<a href='home.php?category=$categoryIds[$i]'>$categoryNames[$i]</a>";
              echo "<br>";
-            
-         }
-         ?>   
-    </div>
-    <div class="grid-item " id="oprema-container">
-         <?php
-         if(isset($_GET['category'])){
-            $oprema = "SELECT * FROM oprema where category_id = ".$_GET['category'];
-            $oprema_rezultat = mysqli_query($conn, $oprema);
-            while($row = mysqli_fetch_array($oprema_rezultat)){
-                echo "<input class='btn' id=".$row['oprema_id']. " type='radio' value=".$row['oprema_id']." onclick='test(this)'> ";
-                echo "<label for=".$row['oprema_id']." class = 'oprema'>".$row['ime_opreme']."</p>";
             }
+         ?>   
+    </div> 
+    <div class="grid-item " id="oprema-container">
+        <form action="backend/add-to-db.php" method= "POST" onSubmit="if(!confirm('Ali je vse izpolnjeno pravilno')){return false;}">
+        <?php
+        if(isset($_GET['error'])){
+            echo "<p id='error'>".$_GET['error']."</p>";
+        }else if(isset($_GET['success'])){
+            echo "<p id='success'>".$_GET['success']."</p>";
+        }
+        
+        ?>
+        <label for="edate">Datum sposoje</label>
+        <input type="date" name="edate" >
+        <br>
+        <label for="return-date"> Datum vrnitve</label>
+        <input type="date" name="return-date" >
+        <br>
+        <button type="submit">Potrdi</button>
+        
+        
 
-            }else{
-                $oprema = "SELECT * FROM oprema ";
+         <?php
+
+         
+            if(isset($_GET['category'])){
+                $oprema = "SELECT * FROM oprema where category_id = ".$_GET['category'];
                 $oprema_rezultat = mysqli_query($conn, $oprema);
                 while($row = mysqli_fetch_array($oprema_rezultat)){
-                    echo "<div class='oprema-package'>";
-                    echo "<input class='btn' id=".$row['oprema_id']. " type='radio' value=".$row['oprema_id']." onclick='test(this)'> ";
-                    echo "<label for=".$row['oprema_id']." class = 'oprema'>".$row['ime_opreme']."</p>";
-                    echo "<img src = img/".$row['image']." class ='image'>";
-                    echo "</div>";
-                    
+                    if($row['is_taken']){
+                        echo "<div class='oprema-package'>";
+                        echo "<input class='btn' name=".$row['oprema_id']." type='checkbox' value=".$row['oprema_id']." disabled> ";
+                        echo "<label for=".$row['oprema_id']." class = 'oprema disabled'>".str_replace("_"," ",$row['ime_opreme'])."</label>";
+                        echo "<img src = img/oprema/".$row['image']." class ='image'>";
+                        echo "</div>";
+                    }else{
+                        echo "<div class='oprema-package'>";
+                        echo "<input class='btn' name=".$row['oprema_id']." type='checkbox' value=".$row['oprema_id']."> ";
+                        echo "<label for=".$row['oprema_id']." class = 'oprema'>".str_replace("_"," ",$row['ime_opreme'])."</label>";
+                        echo "<img src = img/oprema/".$row['image']." class ='image'>";
+                        echo "</div>";
+                    }
+                }
+                }else{
+                    $oprema = "SELECT * FROM oprema ";
+                    $oprema_rezultat = mysqli_query($conn, $oprema);
+                    while($row = mysqli_fetch_array($oprema_rezultat)){
+                        $category = $row['category_id'];
+                        if($row['is_taken']){
+                            
+                            echo "<div class='oprema-package' class=".$category.">";
+                            echo "<input class='btn'  name=".$row['oprema_id']." type='checkbox' value=".$row['oprema_id']." disabled> ";
+                            echo "<label for=".$row['oprema_id']." class = 'oprema disabled'>".str_replace("_"," ",$row['ime_opreme'])."</label>";
+                            echo "<img src = img/oprema/".$row['image']." class ='image'>";
+                            echo "</div>";
+                        }else{
+                            echo "<div class='oprema-package' class=".$category.">";
+                            echo "<input class='btn'  name=".$row['oprema_id']." type='checkbox' value=".$row['oprema_id']."> ";
+                            echo "<label for=".$row['oprema_id']." class = 'oprema'>".str_replace("_"," ",$row['ime_opreme'])."</label>";
+                            echo "<img src = img/oprema/".$row['image']." class ='image'>";
+                            echo "</div>";
+                        }
+                        
+                        
 
+                }
             }
-         }
+        
          ?>
 
-
+        </form>
     </div>
     </div>
 <script>
-    $(document).ready(function () {
-      $('select').selectize({
-          sortField: 'text'
-      });
-  });
+function loadMessage(){
 
-  var radioState = false;
-    function test(element){
-        if(radioState == false) {
-            check(element);
-            radioState = true;
-        }else{
-            uncheck(element);
-            radioState = false;
+<?php
+
+    if(isset($_GET['error'])){
+        echo "alert('".$_GET['error']."'); ";
+    }else if(isset($_GET['success'])){
+        echo "alert('".$_GET['success']."'); ";
+    }
+    
+    ?>
+}
+    /*function displayCategory(id){
+        document.getElementsByClassName(id).style.visibility = "hidden"; 
+    }
+    function clearCategory(){
+        let categoryIds = [<?php $string = implode(",", $categoryIds); echo $string?>];
+        for(let i = 0; i< categoryIds.length; i++){
+            document.getElementsByClassName(categoryIds[i]).style.visibility = "visible";
         }
-    }
-    function check(element) {
-        element.checked = true;
-    }
-    function uncheck(element) {
-        element.checked = false;
-    }
+    }*/
 
 </script>
 </body>

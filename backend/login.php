@@ -10,8 +10,8 @@ if(isset($_POST['uname']) && isset($_POST['pass'] )){
         return $data;
     }
     
-    $uname = validate($_POST['uname']);
-    $pass = validate($_POST['pass']);
+    $uname = mysqli_real_escape_string($conn,validate($_POST['uname']));
+    $pass = mysqli_real_escape_string($conn,validate($_POST['pass']));
     
     
     if (empty($uname)){
@@ -28,11 +28,12 @@ if(isset($_POST['uname']) && isset($_POST['pass'] )){
         if(mysqli_num_rows($result) == 1){
             $row =  mysqli_fetch_assoc($result);
 
-            if(/*password_verify($pass,*/$row['password'] === $pass/*)*/){
+            if(password_verify($pass,$row['password'])){
                 $_SESSION['id'] = $row['id_user'];
                 $_SESSION['username'] = $row['email'];
                 $_SESSION['name'] = $row['ime'];
                 $_SESSION['time'] = time();
+                $_SESSION['admin'] = $row['admin'];
                 header("Location: ../home.php");
                 //header($name);
                 exit();
